@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:12.18
+    container_name: zelda_cookbook
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: zelda_cookbook
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - net-backend
+  
+  backend:
+    image: zelda_backend
+    build: ./zelda-cookbook-backend
+    container_name: backend
+    environment:
+      - DATABASE_URL='postgres://postgres:postgres@zelda_cookbook:5432/zelda_cookbook'
+    ports:
+      - "3000:3000"
+    networks:
+      - net-backend
+      - net-fronted
+    depends_on:
+      - db  
+  fronted:
+    image: zelda_fronted
+    build: ./zelda-cookbook-frontend
+    container_name: fronted
+    networks:
+      - net-fronted
+    ports:
+      - "3010:3000"
+    depends_on:
+      - backend
+
+networks:
+  net-backend:
+  net-fronted:
+
+volumes:
+  pgdata:

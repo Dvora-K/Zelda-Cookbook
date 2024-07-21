@@ -1,6 +1,7 @@
 # Zelda Cookbook
 
 This application provides an easy-to-use interface for users to discover recipes and their required ingredients. The app features a PostgreSQL database for storing recipes and ingredients, a Node.js backend API server, and a Node.js frontend UI server.
+![Zelda Cookbook Screenshot](./zelda-cookbook-frontend//LoZ-cookbook.png)
 
 ## Features
 
